@@ -12,7 +12,13 @@
       "Bash(for f in \"/Users/tobias-benediktblask/2026 Paper Agent Claude Code/figures/\"fig*.png)",
       "Bash(do cp \"$f\" \"/Users/tobias-benediktblask/2026 Paper Agent Claude Code/latex/figures/\")",
       "Bash(done)",
-      "Bash(open:*)"
+      "Bash(open:*)",
+      "mcp__plugin_open-academic-paper-machine_paperbanana__generate_diagram",
+      "Bash(tr:*)",
+      "Bash(pdflatex:*)",
+      "Bash(bibtex:*)",
+      "Bash(uvx:*)",
+      "Bash(GOOGLE_API_KEY=\"AIzaSyBGuSu-YusDmENWnQy3bl2PqYv8gY2zrt8\" uvx:*)"
     ]
   }
 }
