@@ -1,74 +1,73 @@
-# Open Paper Machine: How an LLM Agent Wrote This Paper
+<div align="center">
+  <h1>🧬 Open Paper Machine</h1>
+  <p><b>How an LLM Agent Wrote This Paper (And What That Means for Science)</b></p>
+  
+  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+  [![arXiv](https://img.shields.io/badge/arXiv-2603.XXXXX-b31b1b.svg)](https://arxiv.org/)
+  [![Orchestrator](https://img.shields.io/badge/Orchestrator-T.B.%20Blask-purple)](https://github.com/ProfDrT)
+  [![Reasoning](https://img.shields.io/badge/Reasoning-Claude_Opus_4.6-blue)](https://anthropic.com)
+  [![Vision](https://img.shields.io/badge/Vision-Gemini_3.1_Pro-orange)](https://deepmind.google/technologies/gemini/)
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![arXiv](https://img.shields.io/badge/arXiv-2603.XXXXX-b31b1b.svg)](https://arxiv.org/)
-[![Model: Claude 4.6](https://img.shields.io/badge/Model-Claude%20Opus%204.6-blue)](https://anthropic.com)
+  <i>A reference implementation of an observable, modifiable, and replicable AI research infrastructure.</i>
+</div>
 
-Welcome to the **Open Paper Machine**—an autonomous LLM-based research agent that executes the full academic paper pipeline, from literature search to assembled manuscript. 
+<br>
 
-**The flagship paper of this repository, `latex/paper.pdf`, was written entirely by the system it describes.** 
+> *"This paper was produced by the system it describes. That is not a metaphor. Claude Opus 4.6 searched four academic databases, selected theoretical lenses, built a concept matrix, and drafted every section you are reading. The human orchestrator designed the task and approved the output. The human did not write the prose."* — **Introduction, Open Paper Machine**
 
-## 🧠 The Concept
+---
 
-This project rejects the metaphor of the "AI assistant". Instead, it demonstrates the capacity of a modern Large Language Model (specifically **Claude Opus 4.6**) functioning as a composable research *agent*. When orchestrated through the **Model Context Protocol (MCP)** and given access to persistence layers (scratchpads, task lists) and computational tools, the model shifts from text-prediction to autonomous scientific execution.
+## 📄 The Artifact
+The flagship output of this repository is the complete, 9-page academic manuscript.  
+**👉 [Read the Machine-Generated Paper (PDF)](latex/paper.pdf)**
 
-The Open Paper Machine executes five continuous phases:
-1. **Reconnaissance**: Query formulation & literature corpus gathering via arXiv and Semantic Scholar APIs.
-2. **Framing**: Synthesis of theoretical lenses and structural outlining.
-3. **Architecture**: Methodological grounding and synthesis.
-4. **Production**: Full text drafting via recursive LLM calls.
-5. **Assembly \& Compilation**: LaTeX assessment, high-quality figure generation (via **Gemini 3.1 Pro** + PaperBanana), and PDF compilation.
+## 🧠 The Orchestrator Paradigm
+This project actively rejects the pervasive metaphor of the "AI assistant." Instead, it demonstrates the capacity of a modern autoregressive transformer (specifically **Claude Opus 4.6**) to function as a composable, autonomous research **agent**. 
 
-## 🏗️ Architecture Layers
+When orchestrated through the **Model Context Protocol (MCP)** and given access to persistence layers (scratchpads, task lists) and computational tools, the model shifts from passive text-prediction to active scientific execution.
 
-Agentic research behavior in the Open Paper Machine emerges from the interaction of four critical layers:
-1. **Transformer Substrate**: Extended reasoning across massive context windows.
-2. **Alignment (RLHF)**: Epistemic dispositions and helpfulness.
-3. **Constitutional AI (CAI)**: Self-monitoring, capability awareness, and epistemic regulation.
-4. **Tool-Augmented Action (MCP)**: The ability to execute bash commands, query databases, read errors, edit files, and generate diagrams. Remove any layer, and the system degrades.
+We propose the **Orchestrator Model** for academic authorship: The human who formulates the task, evaluates outputs, and accepts accountability is the author. The AI system is disclosed as the generative engine. The essential distinction is one of *accountability*, not *contribution*.
 
-## 📂 Repository Structure
+## 🏗️ The Four Architectural Layers
+Agentic research behavior in the Open Paper Machine does not stem from a single algorithm; it *emerges* from the interaction of four critical layers. Remove any layer, and the system degrades.
 
-This repository acts as both the source code and the evidential artifact of the machine's operation.
+1. **Transformer Substrate**: Affords extended reasoning across massive context windows and vast implicit factual knowledge.
+2. **Alignment (RLHF)**: Provides epistemic dispositions, ensuring the model defaults to "helpful, honest, and harmless" behaviors.
+3. **Constitutional AI (CAI)**: Embeds self-monitoring, capability awareness, and epistemic self-regulation directly into the generative process.
+4. **Tool-Augmented Action (MCP)**: Grants the agent external reach—the ability to execute bash commands, query academic databases, read terminal errors, edit local files, and generate diagrams.
 
-```text
-.
-├── regen_figures.py        # Pipeline script to generate the 7 conceptual diagrams using Gemini 3.1 Pro
-├── literature_base.csv     # The raw literature database retrieved during Phase 1
-├── concept_matrix.md       # Synthesized mapping of literature to theoretical concepts
-├── framing.md              # The machine's structural plan
-├── paper_structure.md      # Methodological architecture
-├── draft.md                # Markdown compilation before LaTeX conversion
-├── status_report.md        # AI-generated self-assessment of the pipeline
-└── latex/                  # The final production directory
-    ├── paper.tex           # The assembled manuscript
-    ├── references.bib      # BibTeX file generated from the literature base
-    ├── figures/            # The 7 publication-ready diagrams
-    └── paper.pdf           # The stunning, final output compiled by the machine
-```
+## 🔄 The Autonomous Research Pipeline
+The Open Paper Machine executes five continuous, fully automated phases. This repository contains the raw, traceable artifacts produced at each step:
 
-## 🚀 Running the Machine
+| Phase | Agent Role | Generated Artifact | Tools Invoked |
+| :--- | :--- | :--- | :--- |
+| **1. Reconnaissance** | Query formulation & literature gathering | [`literature_base.csv`](literature_base.csv) | arXiv & Semantic Scholar APIs |
+| **2. Framing** | Theoretical lens synthesis & structuring | [`framing.md`](framing.md), [`paper_structure.md`](paper_structure.md) | File System, Bash |
+| **3. Architecture** | Methodological grounding | [`concept_matrix.md`](concept_matrix.md) | Local Retrieval |
+| **4. Production** | Full text drafting & citation mapping | [`draft.md`](draft.md) | Recursive LLM Calls |
+| **5. Assembly** | LaTeX formatting & visualization | [`latex/paper.tex`](latex/paper.tex), [`latex/figures/`](latex/figures/) | Bash, pdflatex, PaperBanana (Gemini 3.1 Pro) |
+
+## 🚀 Reproducibility & Local Execution
 
 ### Prerequisites
-- Python 3.10+
-- LaTeX (`pdflatex`, `bibtex`)
-- API Keys: Anthropic (Claude), Google/Gemini (for figures), and optionally Semantic Scholar.
-- [PaperBanana](https://github.com/llmsresearch/paperbanana) installed for figure generation.
+* Python 3.10+
+* LaTeX distribution (`pdflatex`, `bibtex`)
+* API Keys for Anthropic (Claude) and Google (Gemini)
+* [PaperBanana](https://github.com/llmsresearch/paperbanana) Python Library
 
-### 1. Generating Figures
-The 7 figures used in the paper are dynamically generated based on a strict, publication-ready design system using the `PaperBanana` library.
+### 1. Generating the Publication-Ready Figures
+The 7 conceptual diagrams featured in the paper are dynamically generated based on a strict, high-end design system (utilizing Deep Slate, Azure Blue, Teal, and Amber). Generation is handled by **Gemini 3.1 Pro** via the PaperBanana library.
 
 ```bash
 # Export your Gemini API key
-export GOOGLE_API_KEY="your-api-key"
+export GOOGLE_API_KEY="your-google-api-key"
 
-# Run the generation script
+# Execute the deterministic generation script
 python regen_figures.py
 ```
-*(Note: Figures are rendered in Deep Slate, Azure Blue, Teal, and Amber to ensure high-end publication aesthetics).*
 
 ### 2. Compiling the LaTeX Manuscript
-The paper evaluates itself and compiles its own findings using standard LaTeX tools.
+The agent dynamically evaluates, writes, and compiles its own findings using standard LaTeX.
 
 ```bash
 cd latex
@@ -78,11 +77,5 @@ pdflatex paper.tex
 pdflatex paper.tex
 ```
 
-## 📖 Implications & The "Orchestrator Model"
-
-What this repo demonstrates is not that AI has achieved scientific understanding, but that the boundary between human and AI epistemic contribution has fundamentally blurred. 
-
-We propose the **Orchestrator Model** for academic authorship: The human who formulates the task, evaluates outputs, and accepts accountability is the author. The AI system is disclosed as the generator. The essential distinction is one of *accountability*, not *contribution*.
-
 ---
-*Created by the Open Paper Machine. Orchestrated by Tobias-Benedikt Blask (Harz University of Applied Sciences).*
+*Developed as a sociotechnical intervention by Tobias-Benedikt Blask (Harz University of Applied Sciences). The machine wrote the words; the orchestrator designed the machine.*
