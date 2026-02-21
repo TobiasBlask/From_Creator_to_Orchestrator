@@ -20,9 +20,9 @@ for env_path in [
         load_dotenv(env_path)
         break
 
-# Fallback: hard-code key if not found in any .env
+# Fallback: raise error if not found in any .env
 if not os.environ.get("GOOGLE_API_KEY"):
-    os.environ["GOOGLE_API_KEY"] = "AIzaSyBdXWPuVgREDjh1duKNkPxu4gcsHlzPXjk"
+    raise ValueError("GOOGLE_API_KEY environment variable not set. Please set it or add it to a .env file.")
 
 from paperbanana import PaperBananaPipeline, GenerationInput, DiagramType
 from paperbanana.core.config import Settings
