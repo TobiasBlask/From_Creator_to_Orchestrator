@@ -208,12 +208,12 @@ This pipeline is both method and data. Analyzing where it succeeded and where it
 
 ### 3.3 Quality Criteria
 
-Four criteria, adapted from Lincoln and Guba (1985):
+Four criteria, adapted from and extending Lincoln and Guba (1985), who propose credibility, transferability, dependability, and confirmability. We retain three of these and replace dependability with reflexivity, given the unique epistemic situation of a self-describing AI system:
 
 - **Credibility:** Transparent process, traceable artifacts, established theoretical grounding.
 - **Transferability:** Open-source codebase enables replication assessment.
 - **Confirmability:** All intermediate artifacts archived for independent audit.
-- **Reflexivity:** Explicit acknowledgment that the system cannot introspect its own weights or training data. Its self-assessment is shaped by the same training that produced the capabilities being assessed.
+- **Reflexivity** (replacing dependability)**:** Explicit acknowledgment that the system cannot introspect its own weights or training data. Its self-assessment is shaped by the same training that produced the capabilities being assessed.
 
 ### 3.4 Ethics
 

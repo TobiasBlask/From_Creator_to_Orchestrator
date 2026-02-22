@@ -20,7 +20,7 @@
 
 ## The Artifact
 
-The flagship output of this repository is the complete academic manuscript (19 pages, 59 citations, 7 figures) typeset in the [arxiv-style](https://github.com/kourgeorge/arxiv-style) template.
+The flagship output of this repository is the complete academic manuscript (19 pages, 62 citations, 7 figures) typeset in the [arxiv-style](https://github.com/kourgeorge/arxiv-style) template. All citations have been [verified against source content](verification_report.md).
 
 **[Read the Machine-Generated Paper (PDF)](latex/paper.pdf)**
 
@@ -55,6 +55,20 @@ The Open Paper Machine executes six autonomous phases. All intermediate artifact
 | **6. Self-Review** | Simulated peer review, critique generation | `review.md` | LLM reasoning |
 
 The self-review in Phase 6 generates a structured peer review that the orchestrator uses to identify revision targets. This paper underwent this process: the self-review identified the circularity problem, under-theorization of emergent tasks, and asymmetries in the comparative analysis --- all subsequently addressed.
+
+## Citation Verification
+
+All 62 citations were systematically verified using the plugin's [verification-engine](https://github.com/ProfDrT/open-paper-machine). The engine fetched source abstracts via academic APIs (OpenAlex, CrossRef, Semantic Scholar) and full text for open-access papers (arXiv), then compared each attributed claim against actual source content.
+
+| Classification | Count | % |
+| :--- | :--- | :--- |
+| VERIFIED | 25 | 52% |
+| PLAUSIBLE | 17 | 35% |
+| MISMATCH | 1 | 2% |
+| UNVERIFIABLE | 5 | 10% |
+| NOT FOUND | 0 | 0% |
+
+**0 fabricated references.** The single mismatch (Lincoln & Guba quality criteria terminology) was corrected. 5 sources are unverifiable (books/paywalled content). Full results: [`verification_report.md`](verification_report.md).
 
 ## Figures
 
@@ -145,7 +159,8 @@ claude
 │   ├── paper.pdf              # Compiled PDF
 │   └── figures/               # Figures (copy used by LaTeX)
 ├── figures/                    # 7 PaperBanana-generated figures (source)
-├── references.bib              # 77 BibTeX entries
+├── references.bib              # 62 BibTeX entries (verified)
+├── verification_report.md      # Citation verification results
 ├── draft.md                    # Markdown source draft
 ├── framing.md                  # Theory selection & research questions
 ├── concept_matrix.md           # Webster & Watson concept matrix
