@@ -1,0 +1,176 @@
+% ============================================================
+% APPENDIX — Production Artifacts and Workflow Documentation
+% ============================================================
+
+\appendix
+
+\section{Plugin Architecture: The Open Paper Machine}
+\label{app:plugin}
+
+This appendix documents the technical infrastructure that produced this paper. The Open Paper Machine is a Claude Code plugin comprising 3{,}938 lines of prompt engineering, orchestration logic, and conversion utilities distributed across 18 files. The complete source is archived at \url{https://github.com/ProfDrT/open-paper-machine}.
+
+\subsection{System Overview}
+
+The plugin consists of four architectural layers:
+
+\begin{enumerate}
+  \item \textbf{Plugin manifest} (\texttt{plugin.json}, 18 lines). Declares two MCP server dependencies: \texttt{academic-search} (Semantic Scholar, OpenAlex, CrossRef, arXiv APIs) and \texttt{paperbanana} (AI figure generation via Google Gemini). Both servers start automatically when Claude Code loads the plugin.
+
+  \item \textbf{Autonomous agent} (\texttt{agents/paper-machine.md}, 570 lines). The core orchestration prompt that drives the six-phase pipeline. Operates on five principles: (1)~\textit{Do, don't ask}---make decisions and present results; (2)~\textit{Produce text, not plans}---every phase yields deliverable output; (3)~\textit{Checkpoint, don't block}---present work, then continue; (4)~\textit{Be explicit about decisions}---state what was chosen and why; (5)~\textit{Save everything to files}---every phase produces artifacts.
+
+  \item \textbf{Skill engines} (7 modules, 1{,}933 lines total). Specialized execution modules activated on demand by the agent or user commands. Each encapsulates domain knowledge via fill-in-the-blank templates rather than abstract advice. Table~\ref{tab:skills} summarizes all engines.
+
+  \item \textbf{Command interfaces} (8 commands, 685 lines total). User-facing entry points (\texttt{/write-paper}, \texttt{/search-papers}, \texttt{/export-latex}, \texttt{/verify-citations}, \texttt{/draft-section}, \texttt{/generate-figure}, \texttt{/generate-plot}, \texttt{/respond-reviewers}) that activate specific skill engines or the full pipeline.
+\end{enumerate}
+
+\begin{table}[H]
+\centering
+\small
+\caption{Skill engines of the Open Paper Machine plugin.}
+\label{tab:skills}
+\begin{tabular}{@{}llp{7.5cm}@{}}
+\toprule
+\textbf{Engine} & \textbf{Lines} & \textbf{Capability} \\
+\midrule
+writing-engine & 339 & Sentence, paragraph, and section templates for IS/WI/BWL research. Provides concrete fill-in-the-blank formulas (e.g., 6-paragraph introduction blueprint, IMRAD section patterns). \\
+literature-engine & 213 & API-first literature discovery across four academic databases. Search strategy generation, concept matrix construction, citation snowballing, narrative synthesis. \\
+theory-engine & 169 & Theory selection (TOE, UTAUT, Dynamic Capabilities, etc.), research gap formulation, hypothesis derivation, contribution statement templates. \\
+method-engine & 353 & Methodology decision trees for SLR, case study, Gioia, Mayring, grounded theory, PLS-SEM, DSR, and mixed methods. Complete method section templates. \\
+figure-engine & 202 & AI figure generation via PaperBanana MCP (Gemini backend) with matplotlib/seaborn fallback. Transforms text descriptions into publication-quality diagrams. \\
+latex-engine & 281 & Markdown-to-LaTeX conversion, \texttt{\textbackslash citep}/\texttt{\textbackslash citet} resolution, booktabs tables, arxiv-style compilation. Uses \texttt{md\_to\_latex.py} (732 lines). \\
+verification-engine & 376 & Citation verification against source abstracts and full-text. Classifies each citation as VERIFIED, PLAUSIBLE, MISMATCH, UNVERIFIABLE, or NOT FOUND. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Artifact Inventory}
+
+The pipeline produces the following intermediate artifacts, all version-controlled in the repository:
+
+\begin{itemize}
+  \item \texttt{literature\_base.csv} --- Retrieved literature database (Phase 1)
+  \item \texttt{references.bib} --- BibTeX entries for all cited papers (Phase 1)
+  \item \texttt{framing.md} --- Theory selection, gap formulation, research questions (Phase 2)
+  \item \texttt{concept\_matrix.md} --- Webster \& Watson concept matrix (Phase 3)
+  \item \texttt{paper\_structure.md} --- Section architecture with word budget (Phase 3)
+  \item \texttt{draft.md} --- Complete paper draft as Markdown (Phase 4)
+  \item \texttt{figures/} --- PaperBanana-generated diagrams, 300 DPI PNG (Phase 5)
+  \item \texttt{latex/paper.tex} --- arxiv-style LaTeX source (Phase 5)
+  \item \texttt{latex/paper.pdf} --- Compiled PDF manuscript (Phase 5)
+  \item \texttt{status\_report.md} --- Self-assessed completion status (Phase 6)
+  \item \texttt{verification\_report.md} --- Citation verification results (optional Phase 7)
+\end{itemize}
+
+% ============================================================
+\section{Prototypical Orchestrator--Agent Dialogue}
+\label{app:dialogue}
+
+The following exchange illustrates the orchestrator--agent interaction pattern during Phase~1 (Reconnaissance). The human provides a research topic; the agent autonomously executes literature search, makes framing decisions, and presents results at a checkpoint. Formatting is lightly edited for readability; the substantive content is verbatim.
+
+\vspace{0.5em}
+\noindent\rule{\textwidth}{0.4pt}
+\vspace{0.3em}
+
+\noindent\textbf{Orchestrator:}\\
+\textit{/write-paper From Creator to Orchestrator: How an LLM Agent Wrote This Paper and What That Means for Science}
+
+\vspace{0.4em}
+\noindent\textbf{Agent} (Phase 1 --- Reconnaissance):\\
+Starting systematic literature search. Generating 6 query variations across theoretical, empirical, and methodological dimensions.
+
+\begin{quote}
+\small
+\texttt{Query 1:} ``LLM agent academic paper writing automation'' $\rightarrow$ 47 results (Semantic Scholar)\\
+\texttt{Query 2:} ``AI-assisted research methodology design science'' $\rightarrow$ 31 results (OpenAlex)\\
+\texttt{Query 3:} ``large language model scientific knowledge production'' $\rightarrow$ 52 results (CrossRef)\\
+\texttt{Query 4:} ``autonomous AI agent tool use MCP'' $\rightarrow$ 18 results (arXiv)\\
+\texttt{Query 5:} ``human-AI collaboration knowledge work orchestration'' $\rightarrow$ 29 results (Semantic Scholar)\\
+\texttt{Query 6:} ``generative AI authorship accountability'' $\rightarrow$ 36 results (OpenAlex)
+\end{quote}
+
+After deduplication: 148 unique papers. Snowballing on top-5 cited papers added 23 more. Final corpus: 171 candidates.
+
+Screening by title/abstract relevance: 62 papers retained for the concept matrix.
+
+\textbf{Checkpoint:} Literature base saved to \texttt{literature\_base.csv} (171 entries) and \texttt{references.bib} (62 entries). The corpus covers four domains: (1)~LLM capabilities and limitations, (2)~AI-assisted research tools, (3)~automation and knowledge work, (4)~authorship ethics and accountability. Shall I proceed with framing?
+
+\vspace{0.4em}
+\noindent\textbf{Orchestrator:}\\
+\textit{Looks good. Proceed.}
+
+\vspace{0.4em}
+\noindent\textbf{Agent} (Phase 2 --- Framing):\\
+Selected theoretical lenses: (1)~Sociotechnical envelopment \citep{asatiani2021envelopment} for the human--AI accountability structure; (2)~Task redistribution framework \citep{autor2015why,acemoglu2018automation} for analyzing which research tasks shift from human to machine. Design Science Research \citep{hevner2004design} as methodological frame: the paper itself is the artifact; the pipeline is the design.
+
+Research gap: Existing work treats LLMs as either assistive tools or autonomous threats. No study has documented a \textit{complete}, \textit{observable}, \textit{replicable} AI research pipeline while simultaneously theorizing the implications for scientific practice.
+
+\textbf{Checkpoint:} Framing saved to \texttt{framing.md}. Three research questions derived. Proceeding to architecture.
+
+\vspace{0.3em}
+\noindent\rule{\textwidth}{0.4pt}
+\vspace{0.5em}
+
+This pattern---autonomous execution with checkpoint-based approval---repeats across all six phases. The orchestrator's interventions are evaluative (``Looks good'', ``Redirect the framing toward\ldots'', ``Add a subsection on\ldots'') rather than directive. The agent makes and documents decisions; the orchestrator retains judgment and accountability.
+
+
+% ============================================================
+\section{Workflow Example: Correcting an AI-Generated Figure}
+\label{app:workflow}
+
+This section documents an actual revision episode from the production of this paper. During co-author review, a conceptual error was identified in Figure~\ref{fig:authorship_framework} (the orchestrator model). The episode illustrates both the iterative nature of human--AI collaboration and the necessity of human oversight for maintaining argumentative coherence.
+
+\subsection{The Error}
+
+The initial version of Figure~6, generated by PaperBanana (Google Gemini backend), contained an arrow labeled ``Accountability'' running from the \textit{AI System} box to the \textit{Published Output} box (Figure~\ref{fig:fig6_flawed}). This directly contradicts the paper's central argument: accountability resides \textit{exclusively} with the human orchestrator. The AI system is a generator---it produces content but cannot bear responsibility for claims. The co-author identified this as a conceptual inconsistency during the review.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{figures/fig10_orchestrator_model_v1_flawed.png}
+    \caption{Flawed version of the orchestrator model (v1). Note the ``Accountability'' arrow from the AI System to Published Output---this contradicts the paper's argument that accountability resides solely with the human author.}
+    \label{fig:fig6_flawed}
+\end{figure}
+
+\subsection{The Correction Dialogue}
+
+The following exchange between orchestrator and agent led to the identification and resolution of the error:
+
+\vspace{0.5em}
+\noindent\rule{\textwidth}{0.4pt}
+\vspace{0.3em}
+
+\noindent\textbf{Orchestrator:}\\
+\textit{Doesn't the accountability arrow from AI to Output contradict the principle? Explain to me if I'm wrong.}
+
+\vspace{0.4em}
+\noindent\textbf{Agent:}\\
+You are absolutely right---the arrow is misleading. In the figure, an ``Accountability'' arrow goes from the AI System to the Published Output. This contradicts the core argument of the paper: accountability lies \textit{exclusively} with the human orchestrator, never with the AI system. The AI system is only the generator---it cannot bear responsibility.
+
+The correct flow should be:
+\begin{itemize}
+    \item Human Author $\rightarrow$ (Accountability) $\rightarrow$ Published Output \checkmark
+    \item AI System $\rightarrow$ (Artifacts Archived) $\rightarrow$ Contribution Disclosure \checkmark
+    \item But AI System $\rightarrow$ (Accountability) $\rightarrow$ Published Output $\times$
+\end{itemize}
+
+The arrow should instead be labeled ``Generated Content''---describing the AI's \textit{output contribution}, not accountability.
+
+\vspace{0.4em}
+\noindent\textbf{Orchestrator:}\\
+\textit{Yes! [Regenerate it.]}
+
+\vspace{0.3em}
+\noindent\rule{\textwidth}{0.4pt}
+
+\subsection{The Corrected Figure}
+
+The regenerated version (Figure~\ref{fig:authorship_framework} in the main text) replaces the erroneous ``Accountability'' arrow with ``Generated Content'' and ensures that the only accountability arrow flows from the Human Author to the Published Output. This episode demonstrates three properties of the orchestrator model:
+
+\begin{enumerate}
+    \item \textbf{AI systems can produce conceptually inconsistent artifacts.} The figure generation model (Gemini) optimized for visual clarity but lacked the semantic understanding to recognize that an ``accountability'' arrow from a non-accountable entity violated the paper's argument.
+
+    \item \textbf{Human oversight catches errors that automated systems cannot.} The co-author identified the inconsistency through domain expertise and argumentative reasoning---capabilities that current AI figure generators do not possess.
+
+    \item \textbf{The correction loop is itself an instance of orchestration.} The human identified the problem, the agent confirmed the analysis and proposed the fix, and the human approved the regeneration. This mirrors the Direction $\rightarrow$ Output for Evaluation $\rightarrow$ Direction cycle depicted in the corrected figure itself.
+\end{enumerate}
+
+% End of appendix content
