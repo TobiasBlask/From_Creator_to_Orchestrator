@@ -4,10 +4,13 @@
 
 \appendix
 
+% [R2-56: Appendix scope narrowed to OPM-specific content only]
 \section{Plugin Architecture: The Open Paper Machine}
 \label{app:plugin}
 
-This appendix documents the technical infrastructure that produced this paper. The Open Paper Machine is a Claude Code plugin comprising 3{,}938 lines of prompt engineering, orchestration logic, and conversion utilities distributed across 18 files. The complete source is archived at \url{https://github.com/ProfDrT/open-paper-machine}.
+This appendix documents the \textit{Open Paper Machine specifically}---its plugin structure, orchestration dialogue, and a concrete revision episode. For general background on transformer architecture, RLHF, and Constitutional AI, see Section~\ref{sec:theory}.
+
+The Open Paper Machine is a Claude Code plugin comprising 3{,}938 lines of prompt engineering, orchestration logic, and conversion utilities distributed across 18 files. The complete source is archived at \url{https://github.com/ProfDrT/open-paper-machine}.
 
 \subsection{System Overview}
 
@@ -181,5 +184,64 @@ This episode demonstrates three properties of the orchestrator model:
 
     \item \textbf{The correction loop is itself an instance of orchestration.} The human identified the problem, the agent confirmed the analysis and proposed the fix, and the human approved the regeneration. This mirrors the Direction $\rightarrow$ Output for Evaluation $\rightarrow$ Direction cycle depicted in the corrected figure itself.
 \end{enumerate}
+
+% ============================================================
+\section{Orchestrator--Agent Interaction Timeline}
+\label{app:timeline}
+
+This appendix documents the complete sequence of substantive orchestrator--agent interactions during the production of this paper. Each entry records the pipeline phase, the \textit{character} of the interaction (approval, redirect, expansion, correction, or evaluation), and what it reveals about the orchestrator role. Routine interactions (``proceed,'' ``looks good'') are omitted; only interactions that shaped the paper's content or direction are included.
+
+\vspace{0.5em}
+
+\begin{table}[H]
+\centering
+\small
+\caption{Orchestrator--agent interaction timeline. Character types: \textbf{D}~= Direction (new task or redirect), \textbf{E}~= Expansion (add scope), \textbf{C}~= Correction (fix error), \textbf{V}~= Evaluation (quality judgment), \textbf{A}~= Approval (gate passed).}
+\label{tab:timeline}
+\begin{tabularx}{\textwidth}{@{} c l c X @{}}
+\toprule
+\textbf{\#} & \textbf{Phase} & \textbf{Char.} & \textbf{Interaction} \\
+\midrule
+1 & Phase 1 & D & \textit{Orchestrator} initiates pipeline with title and research topic. Agent autonomously executes 6 search queries across 4 databases, returns 171 candidates. \\[0.3em]
+2 & Phase 1 & E & \textit{Orchestrator} judges sociotechnical theory coverage as thin. Commissions 3 additional targeted searches (``sociotechnical envelopment AI,'' ``task-based automation framework,'' ``distributed cognition AI systems''), adding 14 papers. \\[0.3em]
+3 & Phase 1 & A & Corpus approved: 62 papers retained for concept matrix. \\[0.3em]
+4 & Phase 2 & D & \textbf{Key redirect.} Agent frames paper as pure systems description. \textit{Orchestrator rejects} and redirects toward creator-to-orchestrator thesis---the substantive intellectual decision that shaped the entire argument. \\[0.3em]
+5 & Phase 2 & V & \textit{Orchestrator} evaluates theory selection (distributed cognition, sociotechnical systems, Autor). Approves combination; adds Scarbrough (2024) as missing empirical complement. \\[0.3em]
+6 & Phase 3 & V & \textit{Orchestrator} reviews section architecture. Rebalances word budget: reduces technology description (\S4), expands discussion (\S6). \\[0.3em]
+7 & Phase 3 & A & Architecture approved: 8 sections, $\sim$10{,}000 words. \\[0.3em]
+8 & Phase 4 & C & \textit{Orchestrator} spot-checks citations against retrieved abstracts. Identifies 4 hallucinated claims (correct paper, incorrect attributed finding). Agent corrects. \\[0.3em]
+9 & Phase 4 & V & \textit{Orchestrator} evaluates prose quality. Flags ``intellectual risk'' deficit: too hedged, too balanced. Instructs agent to sharpen provocative arguments (esp.\ \S6.2 desk research). \\[0.3em]
+10 & Phase 5 & C & \textbf{Figure correction.} Co-author identifies conceptual error: ``accountability'' arrow from AI System to Published Output contradicts core argument. Agent confirms error, regenerates figure (see Appendix~\ref{app:workflow}). \\[0.3em]
+11 & Phase 5 & A & \LaTeX{} compilation approved. All figures, tables, references resolve. \\[0.3em]
+12 & Phase 6 & V & Agent generates self-review (simulated peer review). \textit{Orchestrator} evaluates 12 critique points: accepts 8, rejects 4 as unfounded. Accepted critiques drive final revision pass. \\[0.3em]
+13 & Co-author & D & Co-author review introduces new requirements: position paper framing, shorter \S4, ``desk research $\rightarrow$ desk reject'' argument. Agent implements; orchestrator verifies. \\[0.3em]
+14 & R2 Revision & E & 59 review comments processed. Agent drafts responses and edits; orchestrator evaluates each for argumentative coherence and reviewer intent. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Patterns in the Interaction}
+
+Three patterns emerge from the timeline:
+
+\begin{enumerate}
+    \item \textbf{The orchestrator's most consequential interventions are redirections, not corrections.} Interaction \#4 (rejecting the systems framing in favor of the creator-to-orchestrator thesis) shaped the entire paper more than any error correction. This is the ``step up'' strategy \citep{davenport2016just}: the orchestrator operates at the level of research direction, not prose production.
+
+    \item \textbf{Corrections cluster at the semantic level, not the syntactic level.} The agent produces grammatically correct, convention-following prose. Errors occur at the level of \textit{meaning}: hallucinated claims (\#8), conceptual contradictions in figures (\#10), insufficient intellectual risk (\#9). These are precisely the errors that require domain expertise to detect.
+
+    \item \textbf{The interaction character shifts across phases.} Early phases are dominated by \textit{direction} and \textit{expansion} (what to research, how to frame it). Middle phases shift to \textit{correction} and \textit{evaluation} (are the claims right? is the prose sharp enough?). Late phases return to \textit{direction} as co-author feedback introduces new requirements. This pattern---\textit{direct} $\rightarrow$ \textit{evaluate} $\rightarrow$ \textit{redirect}---mirrors the orchestrator cycle depicted in Figure~\ref{fig:authorship_framework}.
+\end{enumerate}
+
+\subsection{What the Timeline Reveals}
+
+The timeline operationalizes the ``orchestration is substantive intellectual work'' claim from Section~3.2. Across 14 substantive interactions, the orchestrator:
+\begin{itemize}[nosep]
+    \item Made 3 directional decisions that shaped the paper's argument (\#1, \#4, \#13)
+    \item Expanded scope based on domain knowledge 2 times (\#2, \#14)
+    \item Corrected semantic errors the agent could not self-detect 2 times (\#8, \#10)
+    \item Exercised evaluative judgment on quality, balance, and sharpness 4 times (\#5, \#6, \#9, \#12)
+\end{itemize}
+
+\noindent None of these interactions involved text production. All involved judgment. This is the creator-to-orchestrator transition made observable.
 
 % End of appendix content
