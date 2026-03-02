@@ -33,11 +33,11 @@ Baseline: Zustand nach Round 1 (78 Kommentare bereits eingearbeitet)
 
 | # | Stelle | Änderung |
 |---|--------|----------|
-| 8 | §2.5 Related Systems | Vorherige R1-Kommentare nachgeprüft; „only system"-Einzigartigkeitsclaim entfernt; Passage umformuliert: „The Open Paper Machine differs from these systems not in capability but in intent" |
+| 8 | §2.5 Related Systems | **Nachholen aus Round 1:** Die in Round 1 geforderte Entschärfung der Vergleichs- und Einzigartigkeitsargumentation war nicht vollständig umgesetzt worden. Jetzt korrigiert: „only system"-Claim entfernt; Passage umformuliert zu „The Open Paper Machine differs from these systems not in capability but in intent"; Vergleichssprache („compared against") durchgängig durch Landschafts-Framing ersetzt |
 | 9 | §4 Methodology | Overselling-Passage entfernt (überhöhte Methodenbeschreibung gestrichen) |
 | 10 | Table 1 | Caption geändert: „Comparison of autonomous AI research systems" → „Autonomous AI research systems relevant to this paper"; Einleitungstext von Vergleichs- auf Landschafts-Framing umgestellt; Label `tab:comparison` → `tab:systems` |
-| 11 | Figure 1 | Pipeline-Abbildung (`fig2_pipeline_phases.png`) via PaperBanana neu generiert — zeigt jetzt „Structure" statt „Architecture" |
-| 12 | Durchgängig | Phasen-Terminologie vereinheitlicht: Reconnaissance, Framing, **Structure**, Production, Assembly, Self-Review — in Abbildung, Tabelle 2, und Fließtext |
+| 11 | Figure 1 | **Nachholen aus Round 1:** Die in Round 1 geforderte Umbenennung von „Architecture" → „Structure" war im Fließtext und in Table 2 umgesetzt worden, aber die Abbildung selbst wurde nicht neu generiert. Jetzt korrigiert: Pipeline-Abbildung (`fig2_pipeline_phases.png`) via PaperBanana neu generiert — zeigt jetzt „Structure" statt „Architecture" |
+| 12 | Durchgängig | **Nachholen aus Round 1:** Die in Round 1 geforderte konsistente Phasen-Terminologie war nicht durchgängig umgesetzt worden (insb. in der Abbildung). Jetzt vollständig vereinheitlicht: Reconnaissance, Framing, **Structure**, Production, Assembly, Self-Review — in Abbildung, Tabelle 2, und Fließtext |
 
 **Zusätzliche Konsistenz-Fixes (aus #8 abgeleitet):**
 
