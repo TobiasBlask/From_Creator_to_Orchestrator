@@ -1,10 +1,10 @@
 <div align="center">
   <h1>From Creator to Orchestrator</h1>
-  <p><b>From Creator to Orchestrator: How an LLM Agent Wrote This Paper and What That Means for Science</b></p>
+  <p><b>From Creator to Orchestrator? How an LLM Agent Wrote This Paper and What That Means for Science</b></p>
 
   [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
   [![arXiv](https://img.shields.io/badge/arXiv-2603.XXXXX-b31b1b.svg)](https://arxiv.org/)
-  [![Orchestrator](https://img.shields.io/badge/Orchestrator-T.B.%20Blask%20%26%20B.%20Funk-purple)](https://github.com/ProfDrT)
+  [![Orchestrator](https://img.shields.io/badge/Orchestrator-T.B.%20Blask%20%26%20B.%20Funk-purple)](https://github.com/TobiasBlask)
   [![Agent](https://img.shields.io/badge/Agent-Claude_Opus_4.6-blue)](https://anthropic.com)
   [![Figures](https://img.shields.io/badge/Figures-PaperBanana_+_Gemini-orange)](https://github.com/llmsresearch/paperbanana)
   [![Template](https://img.shields.io/badge/Template-arxiv--style-lightgrey)](https://github.com/kourgeorge/arxiv-style)
@@ -14,13 +14,13 @@
 
 <br>
 
-> *This paper was produced by the system it describes. Claude Opus 4.6 searched four academic databases, selected theoretical lenses, built a concept matrix, drafted every section, generated a self-review, and the human orchestrators designed the task, evaluated outputs, and accepted accountability.*
+> *This paper was produced by the system it describes. Claude Opus 4.6 searched four academic databases, selected theoretical lenses, built a concept matrix, drafted every section, and generated figures. The human orchestrators designed the research, evaluated outputs, and accepted accountability.*
 
 ---
 
 ## The Artifact
 
-The flagship output of this repository is the complete academic manuscript (19 pages, 62 citations, 7 figures) typeset in the [arxiv-style](https://github.com/kourgeorge/arxiv-style) template. All citations have been [verified against source content](verification_report.md).
+The flagship output of this repository is the complete academic manuscript (18 pages, 46 citations, 2 figures) typeset in the [arxiv-style](https://github.com/kourgeorge/arxiv-style) template. All citations have been [verified against source content](verification_report.md).
 
 **[Read the Machine-Generated Paper (PDF)](latex/paper.pdf)**
 
@@ -29,6 +29,19 @@ The flagship output of this repository is the complete academic manuscript (19 p
 This project demonstrates the **creator-to-orchestrator transition**: when generative AI assumes execution-level tasks in knowledge work, the human role shifts from producing output to directing, evaluating, and taking accountability for AI-generated output. The human orchestrator retains judgment, domain expertise, and institutional responsibility. The AI system is disclosed as the generator.
 
 We propose **accountability-based authorship**: the human who formulates the research, evaluates outputs, verifies claims, and accepts responsibility is the author. The AI is disclosed as the generative engine. The distinction is one of *accountability*, not *contribution*.
+
+## Paper Structure
+
+| Section | Title | Content |
+| :--- | :--- | :--- |
+| 1 | Introduction | Research gaps, two RQs, contributions |
+| 2 | Technical Foundations | Transformers, alignment, MCP, hallucination, related systems |
+| 3 | Theoretical Lenses | Distributed cognition, sociotechnical systems/MLP, task formulation |
+| 4 | Methodology | Design science with reflexive twist, pipeline as data |
+| 5 | The Technology Stack | Four-layer architecture, MCP tool stack |
+| 6 | Capabilities and Failure Modes | What worked, what failed, evaluation |
+| 7 | From Creator to Orchestrator | Task redistribution, authorship, peer review, evolving role |
+| 8 | Conclusion | Summary, CRediT guidelines, the hard problem |
 
 ## Architecture
 
@@ -49,7 +62,7 @@ The Open Paper Machine executes six autonomous phases. All intermediate artifact
 | :--- | :--- | :--- | :--- |
 | **1. Reconnaissance** | Parallel DB searches, deduplication, ranking | [`literature_base.csv`](literature_base.csv), [`references.bib`](references.bib) | OpenAlex, CrossRef, arXiv, Semantic Scholar |
 | **2. Framing** | Theory selection, gap formulation, RQ derivation | [`framing.md`](framing.md) | LLM reasoning |
-| **3. Architecture** | Concept matrix, section design | [`concept_matrix.md`](concept_matrix.md), [`paper_structure.md`](paper_structure.md) | LLM + file I/O |
+| **3. Structure** | Concept matrix, section design | [`concept_matrix.md`](concept_matrix.md), [`paper_structure.md`](paper_structure.md) | LLM + file I/O |
 | **4. Production** | Full-text drafting, section by section | [`draft.md`](draft.md) | LLM generation + file I/O |
 | **5. Assembly** | Figure generation, LaTeX compilation | [`figures/`](figures/), [`latex/paper.tex`](latex/paper.tex) | Bash + PaperBanana + LaTeX |
 | **6. Self-Review** | Simulated peer review, critique generation | `review.md` | LLM reasoning |
@@ -58,7 +71,7 @@ The self-review in Phase 6 generates a structured peer review that the orchestra
 
 ## Citation Verification
 
-All 62 citations were systematically verified using the plugin's [verification-engine](https://github.com/ProfDrT/open-paper-machine). The engine fetched source abstracts via academic APIs (OpenAlex, CrossRef, Semantic Scholar) and full text for open-access papers (arXiv), then compared each attributed claim against actual source content.
+All citations were systematically verified using the plugin's [verification-engine](https://github.com/TobiasBlask/open-paper-machine). The engine fetched source abstracts via academic APIs (OpenAlex, CrossRef, Semantic Scholar) and full text for open-access papers (arXiv), then compared each attributed claim against actual source content.
 
 | Classification | Count | % |
 | :--- | :--- | :--- |
@@ -72,17 +85,12 @@ All 62 citations were systematically verified using the plugin's [verification-e
 
 ## Figures
 
-All 7 publication figures are generated by [PaperBanana](https://github.com/llmsresearch/paperbanana) (Gemini backend) with iterative critic refinement:
+All publication figures are generated by [PaperBanana](https://github.com/llmsresearch/paperbanana) (Gemini backend) with iterative critic refinement:
 
 | Figure | Description | File |
 | :--- | :--- | :--- |
-| Fig. 1 | Four-layer architecture stack | [`fig1_architecture_layers.png`](figures/fig1_architecture_layers.png) |
-| Fig. 2 | Six-phase pipeline | [`fig2_pipeline_phases.png`](figures/fig2_pipeline_phases.png) |
-| Fig. 3 | Task redistribution (skill shift) | [`fig15_skill_shift.png`](figures/fig15_skill_shift.png) |
-| Fig. 4 | Epistemic boundaries | [`fig14_epistemic_boundaries.png`](figures/fig14_epistemic_boundaries.png) |
-| Fig. 5 | Sociotechnical redesign | [`fig8_sociotechnical_redesign.png`](figures/fig8_sociotechnical_redesign.png) |
-| Fig. 6 | Orchestrator authorship model | [`fig10_orchestrator_model.png`](figures/fig10_orchestrator_model.png) |
-| Fig. 7 | Capability matrix | [`fig6_capability_matrix.png`](figures/fig6_capability_matrix.png) |
+| Fig. 1 | Six-phase pipeline with human quality gates | [`fig2_pipeline_phases.png`](latex/figures/fig2_pipeline_phases.png) |
+| Fig. 2 | Creator-to-orchestrator transition model | [`fig_creator_to_orchestrator.png`](latex/figures/fig_creator_to_orchestrator.png) |
 
 ## Setup & Reproducibility
 
@@ -96,7 +104,7 @@ All 7 publication figures are generated by [PaperBanana](https://github.com/llms
 ### 1. Clone and Install Dependencies
 
 ```bash
-git clone https://github.com/ProfDrT/From_Creator_to_Orchestrator.git
+git clone https://github.com/TobiasBlask/From_Creator_to_Orchestrator.git
 cd From_Creator_to_Orchestrator
 
 # Install PaperBanana (figure generation engine)
@@ -117,16 +125,7 @@ export GOOGLE_API_KEY="your-google-api-key-here"
 
 > **Note:** The `.env` file is listed in `.gitignore` and will not be committed. Never commit API keys to version control.
 
-### 3. Generate Figures
-
-```bash
-# Generate all 7 paper figures via PaperBanana
-python regen_figures.py
-```
-
-Each figure goes through PaperBanana's multi-agent pipeline (Planner → Stylist → Visualizer → Critic) with iterative refinement. Expect ~1 minute per figure.
-
-### 4. Compile the Manuscript
+### 3. Compile the Manuscript
 
 The paper uses the [arxiv-style](https://github.com/kourgeorge/arxiv-style) template (`arxiv.sty` is included in `latex/`).
 
@@ -138,9 +137,9 @@ pdflatex paper.tex
 pdflatex paper.tex
 ```
 
-### 5. Run the Full Pipeline (via Claude Code)
+### 4. Run the Full Pipeline (via Claude Code)
 
-To reproduce the entire paper from scratch using the autonomous agent, install the [Open Academic Paper Machine](https://github.com/ProfDrT/open-paper-machine) plugin:
+To reproduce the entire paper from scratch using the autonomous agent, install the [Open Academic Paper Machine](https://github.com/TobiasBlask/open-paper-machine) plugin:
 
 ```bash
 claude
@@ -153,20 +152,20 @@ claude
 ```
 .
 ├── latex/
-│   ├── paper.tex              # Complete LaTeX manuscript (19 pages)
+│   ├── paper.tex              # Complete LaTeX manuscript (18 pages)
+│   ├── appendix.tex           # Plugin architecture & orchestration dialogue
+│   ├── references.bib         # Bibliography (46 entries)
 │   ├── arxiv.sty              # arxiv-style template
-│   ├── orcid.pdf              # ORCID icon for author block
 │   ├── paper.pdf              # Compiled PDF
-│   └── figures/               # Figures (copy used by LaTeX)
-├── figures/                    # 7 PaperBanana-generated figures (source)
-├── references.bib              # 62 BibTeX entries (verified)
+│   └── figures/               # 2 PaperBanana-generated figures
+├── figures/                    # Figure sources
+├── references.bib              # BibTeX entries (verified)
 ├── verification_report.md      # Citation verification results
 ├── draft.md                    # Markdown source draft
 ├── framing.md                  # Theory selection & research questions
 ├── concept_matrix.md           # Webster & Watson concept matrix
 ├── paper_structure.md          # Section architecture
 ├── literature_base.csv         # Retrieved literature database
-├── regen_figures.py            # Figure regeneration script
 └── .env                        # API keys (not committed)
 ```
 
@@ -174,16 +173,16 @@ claude
 
 ```bibtex
 @article{blask2026creator,
-  title={From Creator to Orchestrator: How an LLM Agent Wrote This Paper
+  title={From Creator to Orchestrator? How an LLM Agent Wrote This Paper
          and What That Means for Science},
   author={Blask, Tobias-Benedikt and Funk, Burkhardt},
   journal={arXiv preprint},
   year={2026},
   note={Paper generated by Claude Opus 4.6 (Anthropic PBC) under
         human orchestration. Repository:
-        \url{https://github.com/ProfDrT/From_Creator_to_Orchestrator}}
+        \url{https://github.com/TobiasBlask/From_Creator_to_Orchestrator}}
 }
 ```
 
 ---
-*Developed as a sociotechnical intervention by Tobias-Benedikt Blask (Harz University of Applied Sciences) and Burkhardt Funk (Leuphana University of Lüneburg). The machine wrote the words; the orchestrators designed the machine.*
+*Developed as a sociotechnical intervention by Tobias-Benedikt Blask (Harz University of Applied Sciences) and Burkhardt Funk (Leuphana University of L&uuml;neburg). The machine wrote the words; the orchestrators designed the machine.*
