@@ -114,7 +114,7 @@ Two contributions---both deliberately positioned as arguments to be debated, not
 
 \begin{enumerate}
   \item \textbf{Creator-to-orchestrator framework.} The primary contribution: a theoretically grounded \textit{position} on how AI agents restructure the task composition of knowledge work---with academic research as the critical case. Integrating \citeauthor{autor2015why}'s~(\citeyear{autor2015why}) task-based automation framework, \citeauthor{hutchins1995cognition}'s~(\citeyear{hutchins1995cognition}) distributed cognition, and \citeauthor{trist1951social} and Bamforth's~(\citeyear{trist1951social}) sociotechnical systems theory, we argue that the researcher's role shifts from producing output to directing, evaluating, and taking accountability for AI-generated output. This paper is intended to spark discussion about what this transition means for research practice, training, and institutional design.
-  \item \textbf{Architectural blueprint with reflexive demonstration.} The \textit{Open Paper Machine}---an open, extensible LLM-based research pipeline built on Claude Opus 4.6 and the Model Context Protocol---serves as a reference design and as evidence for the position above. This manuscript, produced by the system it describes, constitutes a documented end-to-end demonstration with all intermediate artifacts archived, situated within the landscape of autonomous research systems \citep{handler2023taxonomy,wang2024survey}, and analyzed from the inside.
+  \item \textbf{Architectural blueprint with reflexive demonstration.} The \textit{Open Paper Machine}---an open, extensible LLM-based research pipeline built on Claude Opus 4.6 and the Model Context Protocol---serves as a reference design and as evidence for the position above. This manuscript, produced by the system it describes, constitutes a documented end-to-end demonstration with all intermediate artifacts archived, situated within the landscape of autonomous research agents \citep{handler2023taxonomy,wang2024survey}, and analyzed from the inside.
 \end{enumerate}
 
 % [R2-22: §1.5 Roadmap deleted per Burkhardt R2 — "bringt nix"]
@@ -174,14 +174,15 @@ Any assessment of LLM-based research must confront the hallucination problem: LL
 The Open Paper Machine implements retrieval-first citation: every reference originates from live API responses (Semantic Scholar, OpenAlex, CrossRef, arXiv) with verifiable DOIs, not from the model's parametric memory, following the retrieval-augmented generation (RAG) architecture validated by \citeauthor{asai2024openscholar}'s~(\citeyear{asai2024openscholar}) OpenScholar system (see Section~\ref{sec:capabilities}). \citet{guan2024knowledge} propose knowledge graph grounding as a complementary strategy. Despite these mitigations, synthesis and argumentation remain products of generation and carry residual hallucination risk that only human verification can address.
 
 % [R3-R2: Related Systems reframed per Burkhardt #10 — not a comparison, these are systems informing this work]
-\subsection{Related Systems}
+% [R3-R3: "Related Systems" → "Related Agents" per Burkhardt #1/#3 — consistent "agents" terminology]
+\subsection{Related Agents}
 
-Table~\ref{tab:systems} presents autonomous AI research systems that informed the design of the Open Paper Machine. These are the systems that collectively define the landscape from which our pipeline emerged---not competitors, but reference points that clarify shared capabilities (tool-augmented generation, iterative refinement) and design choices specific to our approach (reflexive self-analysis, IS-grounded theory, extensible MCP architecture).
+Table~\ref{tab:systems} presents autonomous AI research agents that informed the design of the Open Paper Machine. These are the systems that collectively define the landscape from which our pipeline emerged---not competitors, but reference points that clarify shared capabilities (tool-augmented generation, iterative refinement) and design choices specific to our approach (reflexive self-analysis, IS-grounded theory, extensible MCP architecture).
 
 \begin{table}[ht]
 \centering
 \small
-\caption{Autonomous AI research systems.}
+\caption{Autonomous AI research agents.}
 \label{tab:systems}
 \begin{tabularx}{\textwidth}{@{} >{\raggedright\arraybackslash}X l c c c c >{\raggedright\arraybackslash}p{2.2cm} @{}}
 \toprule
@@ -252,7 +253,7 @@ Why build on \textit{existing} components (Claude Opus~4.6, MCP, academic search
 % [R3: #32/#33 — Reduced to one objective per Burkhardt; "All three are inseparable" deleted]
 The DSR artifact comprises the \textit{Open Paper Machine pipeline}, this \textit{manuscript} as its output, and the \textit{production process} documented through archived artifacts.
 
-Following \citeauthor{hevner2004design}'s~(\citeyear{hevner2004design}) guidelines, we evaluate in three steps. First, \textit{technical evaluation}: Section~\ref{sec:capabilities} documents what the pipeline achieved and where it failed, situated within the landscape of autonomous research systems (Table~\ref{tab:systems}). Second, \textit{reflexive evaluation}: our orchestrator interventions are analyzed as data (see ``Orchestrator trace'' below and Appendix~\ref{app:timeline}). Third, \textit{theoretical interpretation}: Section~\ref{sec:orchestrator} frames the production experience through distributed cognition, sociotechnical systems, and task-based automation theory.
+Following \citeauthor{hevner2004design}'s~(\citeyear{hevner2004design}) guidelines, we evaluate in three steps. First, \textit{technical evaluation}: Section~\ref{sec:capabilities} documents what the pipeline achieved and where it failed, situated within the landscape of autonomous research agents (Table~\ref{tab:systems}). Second, \textit{reflexive evaluation}: our orchestrator interventions are analyzed as data (see ``Orchestrator trace'' below and Appendix~\ref{app:timeline}). Third, \textit{theoretical interpretation}: Section~\ref{sec:orchestrator} frames the production experience through distributed cognition, sociotechnical systems, and task-based automation theory.
 
 % [R3: Time tracking limitation added per Burkhardt — "we should have monitored engagement"]
 We acknowledge that our evaluation has inherent limitations. We did not systematically track the time invested in orchestration (prompt formulation, output evaluation, verification, revision), which would have strengthened claims about the human effort required. Future replications should log orchestrator engagement time alongside pipeline artifacts. Additionally, the artifact has not undergone independent external evaluation (e.g., blind expert assessment of manuscript quality or controlled comparison with human-authored papers). The reflexive design---the system evaluating its own output---creates a circularity that artifact archiving mitigates but cannot eliminate. As a position paper, we do not claim that these evaluations validate the creator-to-orchestrator thesis; rather, they provide grounded evidence---from a single, documented case---for the position we advance. We treat this as a first-cycle DSR contribution \citep{hevner2004design}, inviting the research community to conduct the independent evaluation that a self-describing system cannot provide for itself.
@@ -269,7 +270,10 @@ We acknowledge that our evaluation has inherent limitations. We did not systemat
     \label{fig:pipeline_phases}
 \end{figure}
 
-The six-phase pipeline is depicted in Figure~\ref{fig:pipeline_phases}. Each phase produces persistent Markdown artifacts that serve as both intermediate outputs and inputs to subsequent phases. Critically, each phase boundary enables a \textbf{human quality gate}: the orchestrator reviews the artifact, decides whether it meets the required standard, and either approves progression or redirects the agent. Table~\ref{tab:quality_gates} specifies the gate criteria for each phase.
+% [R3-R3: §4.2 restructured per Burkhardt #5 — brief phase descriptions added]
+The six-phase pipeline is depicted in Figure~\ref{fig:pipeline_phases}. Each phase produces persistent Markdown artifacts that serve as both intermediate outputs and inputs to subsequent phases. Critically, each phase boundary enables a \textbf{human quality gate}: the orchestrator reviews the artifact, decides whether it meets the required standard, and either approves progression or redirects the agent.
+
+The six phases are as follows. In \textit{Phase~1 (Reconnaissance)}, the agent executes parallel searches across four academic databases (Semantic Scholar, OpenAlex, CrossRef, arXiv), deduplicates results by DOI, and ranks papers by citation count and topical relevance. In \textit{Phase~2 (Framing)}, it selects theoretical lenses appropriate to the research domain, formulates a research gap, and derives research questions. In \textit{Phase~3 (Structure)}, it builds a concept matrix from the retrieved literature and designs the paper's section hierarchy with word budgets. In \textit{Phase~4 (Production)}, it drafts each section as complete academic prose, integrating citations from the literature base. In \textit{Phase~5 (Assembly)}, it compiles the manuscript into \LaTeX{}, generates figures via PaperBanana, and resolves the bibliography. In \textit{Phase~6 (Self-Review)}, it produces a simulated peer review that the orchestrator uses as a revision checklist. Table~\ref{tab:quality_gates} specifies the human gate criteria for each phase.
 
 \begin{table}[ht]
 \centering
@@ -296,12 +300,12 @@ The pipeline follows a fixed six-phase structure but produces stochastic outputs
 % [R2-37: §3.2 tightened; R2-38: "writing about itself" phrasing; R2-39: OPM scope stated]
 This pipeline is both method and data. Analyzing where it succeeded and where it required human intervention provides direct evidence for both research questions: what the pipeline can and cannot do (RQ1), and what the orchestrator's role becomes (RQ2). The reflexive structure---a system writing about itself---provides unusually direct access to the production process as evidence.
 
-\textbf{Scope and applicability.} The Open Paper Machine is designed for \textit{conceptual and theoretical} research: literature reviews, theoretical syntheses, framework papers, and---as demonstrated here---reflexive analyses of AI systems. It cannot conduct empirical research that requires primary data collection (interviews, experiments, surveys), though such capabilities could in principle be added through MCP tool extensions (see Section~\ref{sec:capabilities}). The pipeline is best suited for research questions that can be addressed through synthesis, argumentation, and analysis of existing literature.
+% [R3-R3: "Scope and applicability" paragraph moved to §8 (Conclusion) per Burkhardt #4]
 
 Phase~6 (Self-Review) closes the feedback loop: the system generates a simulated peer review that the orchestrator uses as a checklist. This paper's self-review identified the circularity problem (now addressed in the ``Orchestrator trace'') and asymmetries in the comparative analysis (corrected in Table~\ref{tab:systems}). The self-review does not replace human peer review---it cannot assess novelty or field fit---but it operationalizes the orchestrator principle: the system generates critique, the human evaluates which critiques are valid.
 
 % [R2-44: Concrete iteration examples added]
-\textbf{Orchestrator trace.} To address the circularity inherent in a self-describing system, the project repository archives the complete production history: raw AI outputs, human prompts, intermediate drafts, and the final manuscript. The git history constitutes a de facto change log. Key orchestrator interventions, documented in the repository, included:
+\textbf{Orchestrator trace.} To address the circularity inherent in a self-describing system, the project repository archives the complete production history: raw AI outputs, human prompts, intermediate drafts, and the final manuscript. The git history constitutes a de facto change log. Key orchestrator interventions, documented in the repository, included, for instance:
 
 \begin{itemize}[nosep]
   \item \textit{Framing redirect (Phase 2):} The agent's initial framing positioned the paper as a pure systems description. The orchestrator rejected this and redirected toward the creator-to-orchestrator thesis---a substantive intellectual decision that shaped the entire argument.
@@ -402,6 +406,7 @@ This section develops the paper's central argument. The Open Paper Machine demon
 
 % [R2-52: Explicit link to Fig 2 pipeline]
 \subsection{The Task Redistribution}
+\label{sec:task_redistribution}
 
 \citet{autor2015why} shows that automation restructures the task composition of occupations rather than eliminating them. Applied to academic research, the restructuring is directly visible in the six-phase pipeline (Figure~\ref{fig:pipeline_phases}): each phase involves a specific distribution of tasks between agent and orchestrator.
 
@@ -431,7 +436,8 @@ The positive reading---and the one we endorse---is that automation \textit{clari
 % [R2-53: Relationship between §6.1 and §6.2 clarified]
 \subsection{The Augmentation Spectrum}
 
-Section~6.1 identified \textit{which} tasks shift; this section asks \textit{how} the human engages with the remaining tasks. \citet{davenport2016just} propose five augmentation strategies. Applied to the orchestrator model:
+% [R3-R3: Cross-reference fixed per Burkhardt #7 — was hardcoded "6.1", now §7.1]
+Section~\ref{sec:task_redistribution} identified \textit{which} tasks shift; this section asks \textit{how} the human engages with the remaining tasks. \citet{davenport2016just} propose five augmentation strategies. Applied to the orchestrator model:
 
 \textbf{Step up:} The researcher moves to higher-level decisions---which research problems to pursue, what theoretical frameworks to combine, how to position findings in ongoing debates. These strategic choices are not delegable because they require understanding of the field's trajectory, unresolved tensions, and institutional politics.
 
@@ -512,6 +518,9 @@ The creator-to-orchestrator transition does not eliminate the researcher. It res
 \subsection{Summary}
 
 Two questions, two contributions. RQ1: the Open Paper Machine provides an architectural blueprint for LLM-based research pipelines, demonstrating full-pipeline execution---from literature search through \LaTeX{} compilation---while exhibiting fundamental limitations: hallucination risk, training cutoff, overconfident synthesis, no primary data generation, and evaluation bias. The reflexive analysis of this paper's own production documents both the capabilities and the failure modes. RQ2: the creator-to-orchestrator transition restructures the researcher's role from text producer to process director, output evaluator, and accountability holder. This transition follows the task-based logic identified by \citet{autor2015why} and \citet{acemoglu2018automation}: execution tasks are delegated, judgment tasks intensify, and new orchestration tasks emerge. The transition is partial, not total---human ideas, epistemic judgment, and institutional knowledge remain irreplaceable.
+
+% [R3-R3: Scope paragraph moved here from §4.2 per Burkhardt #4]
+\textbf{Scope and applicability.} The Open Paper Machine is designed for \textit{conceptual and theoretical} research: literature reviews, theoretical syntheses, framework papers, and---as demonstrated here---reflexive analyses of AI systems. It cannot conduct empirical research that requires primary data collection (interviews, experiments, surveys), though such capabilities could in principle be added through MCP tool extensions (see Section~\ref{sec:capabilities}). The pipeline is best suited for research questions that can be addressed through synthesis, argumentation, and analysis of existing literature.
 
 % [R2-58: CRediT-based guidelines and Orchestration Trace added]
 \subsection{Toward Practical Guidelines: CRediT and the Orchestration Trace}
