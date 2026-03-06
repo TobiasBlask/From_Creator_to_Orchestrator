@@ -1,31 +1,38 @@
-# Environments
-.env
-
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-venv/
-env/
-.venv/
-
-# PaperBanana outputs
-outputs/
-
-# LaTeX
+# LaTeX build artifacts
 *.aux
 *.bbl
 *.blg
 *.log
 *.out
+*.toc
 *.fls
 *.fdb_latexmk
 *.synctex.gz
-*.toc
+
+# Temp/comparison files
+comparison_*.tex
+comparison_*.pdf
+comparison_*.md
+contribution_map*.tex
+contribution_map*.pdf
+contribution_map*.md
+revision_complete_*.tex
+revision_complete_*.pdf
+
+# Editor/system
 .DS_Store
+*.swp
+*~
 
-# PaperBanana local source (install via pip instead)
-paperbanana-src/
+# Claude settings
+.claude/settings.local.json
 
-# Helper scripts
-update_paper.py
+# Submission bundles
+*.tar.gz
+
+# Old/temp figures
+latex/figures/run_*/
+latex/figures/*_OLD.png
+
+# Appendix diff (generated)
+latex/appendix_diff.tex
